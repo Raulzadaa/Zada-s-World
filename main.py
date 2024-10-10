@@ -2,6 +2,7 @@ import pygame, sys
 from settings import *
 from floor import Floor
 
+
 class Game:
     def __init__(self):
         

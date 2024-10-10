@@ -2,6 +2,7 @@ import pygame
 from settings import *
 from tile import Tile
 from player import Player
+from debug import debug
 
 class Floor:
     def __init__(self):
@@ -9,7 +10,7 @@ class Floor:
         self.display_surface = pygame.display.get_surface()
 
         self.visible_sprites = pygame.sprite.Group()
-        self.obstacles_sprites = pygame.sprite.Group()
+        self.obstacle_sprites = pygame.sprite.Group()
 
         self.create_map()
 
@@ -19,19 +20,21 @@ class Floor:
                 x = col_index * tilesize
                 y = row_index * tilesize
                 if col == 'x':
-                    Tile((x,y), [self.visible_sprites , self.obstacles_sprites])
+                    Tile((x,y), [self.visible_sprites , self.obstacle_sprites])
                 if col == 'p':
-                    Player((x,y), [self.visible_sprites])
+                    self.player = Player((x,y), [self.visible_sprites], self.obstacle_sprites)
     def run(self):
         self.visible_sprites.draw(self.display_surface)
+        self.visible_sprites.update()
+        debug(self.player.direction)
 
 world_map_floor1 = [
 ['x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ','p',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
-['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
-['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
+['x',' ',' ',' ',' 'x' 'x' 'x' 'x' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
+['x',' ',' ',' ',x' 'x' ' ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],

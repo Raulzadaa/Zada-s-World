@@ -4,7 +4,7 @@ from settings import *
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacle_sprites):
         super().__init__(groups)
-        self.image = pygame.image.load('graphics/player_front.png').convert_alpha()
+        self.image = pygame.image.load("""C:/Users/Adm/Desktop/Zada's World/graphics/player_front.png""").convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
 
         self.direction = pygame.math.Vector2()

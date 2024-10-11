@@ -4,7 +4,7 @@ from settings import *
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos, groups, obstacle_sprites):
         super().__init__(groups)
-        self.image = pygame.image.load('graphics/player_male.png').convert_alpha()
+        self.image = pygame.image.load('graphics/player_front.png').convert_alpha()
         self.rect = self.image.get_rect(topleft = pos)
 
         self.direction = pygame.math.Vector2()
@@ -35,9 +35,8 @@ class Player(pygame.sprite.Sprite):
         # self.rect.center += self.direction * speed
 
         self.rect.x += self.direction.x * speed
-        self.rect.y += self.direction.y * speed
-
         self.collision('horizontal')
+        self.rect.y += self.direction.y * speed
         self.collision('vertical')
 
     def collision(self, direction):
@@ -55,7 +54,7 @@ class Player(pygame.sprite.Sprite):
                     if self.direction.y > 0:
                         self.rect.bottom = sprite.rect.top
                     if self.direction.y < 0:
-                        self.rect.top = sprite.rect.down
+                        self.rect.top = sprite.rect.bottom
 
     def update(self):
         self.input()

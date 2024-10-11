@@ -3,13 +3,14 @@ from settings import *
 from tile import Tile
 from player import Player
 from debug import debug
+from cameraMove import SortCameraGroup
 
 class Floor:
     def __init__(self):
         
         self.display_surface = pygame.display.get_surface()
 
-        self.visible_sprites = pygame.sprite.Group()
+        self.visible_sprites = SortCameraGroup()
         self.obstacle_sprites = pygame.sprite.Group()
 
         self.create_map()
@@ -23,8 +24,9 @@ class Floor:
                     Tile((x,y), [self.visible_sprites , self.obstacle_sprites])
                 if col == 'p':
                     self.player = Player((x,y), [self.visible_sprites], self.obstacle_sprites)
+
     def run(self):
-        self.visible_sprites.draw(self.display_surface)
+        self.visible_sprites.custom_draw(self.player)
         self.visible_sprites.update()
         debug(self.player.direction)
 
@@ -33,9 +35,9 @@ world_map_floor1 = [
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ','p',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
-['x',' ',' ',' ',' 'x' 'x' 'x' 'x' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
-['x',' ',' ',' ',x' 'x' ' ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
-['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
+['x',' ',' ',' ','x','x','x','x','x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
+['x',' ',' ',' ','x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
+['x',' ',' ',' ','x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
 ['x',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','x'],
